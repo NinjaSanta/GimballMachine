@@ -1,0 +1,511 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.std_logic_textio.all;
+use IEEE.std_logic_arith.all;
+use IEEE.numeric_bit.all;
+use IEEE.numeric_std.all;
+use IEEE.std_logic_signed.all;
+use IEEE.std_logic_unsigned.all;
+use IEEE.math_real.all;
+use IEEE.math_complex.all;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity main_module is
+    Port (
+     clk_outx : out STD_LOGIC;
+     clk_outy : out STD_LOGIC;
+     clk_outz : out STD_LOGIC;
+     clk : in STD_LOGIC;
+--     sw1 : in STD_LOGIC;
+     x0 : in STD_LOGIC;
+     x3 : in STD_LOGIC;
+     x4 : in STD_LOGIC;
+     x5: in STD_LOGIC;
+     x6 : in STD_LOGIC;
+     y0 : in STD_LOGIC;
+     y3 : in STD_LOGIC;
+     y4 : in STD_LOGIC;
+     y5 : in STD_LOGIC;
+     y6 : in STD_LOGIC;
+     z0 : in STD_LOGIC;
+     z3 : in STD_LOGIC;
+     z4 : in STD_LOGIC;
+     z5 : in STD_LOGIC;
+     z6 : in STD_LOGIC;
+     reset : in STD_LOGIC
+     );
+end main_module;
+
+architecture Behavioral of clk_divider is
+    signal tempx : STD_LOGIC;
+    signal tempy : STD_LOGIC;
+    signal tempz : STD_LOGIC;
+    signal counter : integer range 0 to 2000000;
+    signal servocount : integer;
+    signal xcount : integer range -60 to 60;
+    signal ycount : integer range -60 to 60;
+    signal zcount : integer range -60 to 60;   
+    
+
+
+begin
+
+
+    
+    freq_divider : process (reset, clk) begin
+        if (reset = '1') then
+            tempx  <= '0';
+            counter <= 0;
+       
+        elsif rising_edge(clk) then
+            
+            if (x6='0' and x5='0' and x4='0' and x3='0') then
+                xcount <= 0;
+            elsif (x6='0' and x5='0' and x4='0' and x3='1' and x0='0') then
+                xcount <= 1;
+            elsif (x6='0' and x5='0' and x4='1' and x3='0' and x0='0') then
+                xcount <= 2;
+            elsif (x6='0' and x5='0' and x4='1' and x3='1' and x0='0') then
+                xcount <= 3; 
+            elsif (x6='0' and x5='1' and x4='0' and x3='0' and x0='0') then
+                xcount <= 4;
+            elsif (x6='0' and x5='1' and x4='0' and x3='1' and x0='0') then
+                xcount <= 5;
+            elsif (x6='0' and x5='1' and x4='1' and x3='0' and x0='0') then
+                xcount <= 6;
+            elsif (x6='0' and x5='1' and x4='1' and x3='1' and x0='0') then
+                xcount <= 7;
+            elsif (x6='1' and x5='0' and x4='0' and x3='0' and x0='0') then
+                xcount <= 8;
+            elsif (x6='1' and x5='0' and x4='0' and x3='1' and x0='0') then
+                xcount <= 9;
+            elsif (x6='1' and x5='0' and x4='0' and x3='1' and x0='0') then
+                xcount <= 10;
+                 
+            elsif (x6='0' and x5='0' and x4='0' and x3='1' and x0='1') then
+                xcount <= -1;
+            elsif (x6='0' and x5='0' and x4='1' and x3='0' and x0='1') then
+                xcount <= -2;
+            elsif (x6='0' and x5='0' and x4='1' and x3='1' and x0='1') then
+                xcount <= -3; 
+            elsif (x6='0' and x5='1' and x4='0' and x3='0' and x0='1') then
+                xcount <= -4;
+            elsif (x6='0' and x5='1' and x4='0' and x3='1' and x0='1') then
+                xcount <= -5;
+            elsif (x6='0' and x5='1' and x4='1' and x3='0' and x0='1') then
+                xcount <= -6;
+            elsif (x6='0' and x5='1' and x4='1' and x3='1' and x0='1') then
+                xcount <= -7;
+            elsif (x6='1' and x5='0' and x4='0' and x3='0' and x0='1') then
+                xcount <= -8;
+            elsif (x6='1' and x5='0' and x4='0' and x3='1' and x0='1') then
+                xcount <= -9;
+            elsif (x6='1' and x5='0' and x4='0' and x3='1' and x0='1') then
+                xcount <= -10;
+            end if;               
+                          
+
+            
+            
+            
+            
+            
+            
+            if (y6='0' and y5='0' and y4='0' and y3='0') then
+                ycount <= 0;
+            elsif (y6='0' and y5='0' and y4='0' and y3='1' and y0='0') then
+                ycount <= 1;
+            elsif (y6='0' and y5='0' and y4='1' and y3='0' and y0='0') then
+                ycount <= 2;
+            elsif (y6='0' and y5='0' and y4='1' and y3='1' and y0='0') then
+                ycount <= 3; 
+            elsif (y6='0' and y5='1' and y4='0' and y3='0' and y0='0') then
+                ycount <= 4;
+            elsif (y6='0' and y5='1' and y4='0' and y3='1' and y0='0') then
+                ycount <= 5;
+            elsif (y6='0' and y5='1' and y4='1' and y3='0' and y0='0') then
+                ycount <= 6;
+            elsif (y6='0' and y5='1' and y4='1' and y3='1' and y0='0') then
+                ycount <= 7;
+            elsif (y6='1' and y5='0' and y4='0' and y3='0' and y0='0') then
+                ycount <= 8;
+            elsif (y6='1' and y5='0' and y4='0' and y3='1' and y0='0') then
+                ycount <= 9;
+            elsif (y6='1' and y5='0' and y4='0' and y3='1' and y0='0') then
+                ycount <= 0;
+           
+            elsif (y6='0' and y5='0' and y4='0' and y3='1' and y0='1') then
+                ycount <= -1;
+            elsif (y6='0' and y5='0' and y4='1' and y3='0' and y0='1') then
+                ycount <= -2;
+            elsif (y6='0' and y5='0' and y4='1' and y3='1' and y0='1') then
+                ycount <= -3; 
+            elsif (y6='0' and y5='1' and y4='0' and y3='0' and y0='1') then
+                ycount <= -4;
+            elsif (y6='0' and y5='1' and y4='0' and y3='1' and y0='1') then
+                ycount <= -5;
+            elsif (y6='0' and y5='1' and y4='1' and y3='0' and y0='1') then
+                ycount <= -6;
+            elsif (y6='0' and y5='1' and y4='1' and y3='1' and y0='1') then
+                ycount <= -7;
+            elsif (y6='1' and y5='0' and y4='0' and y3='0' and y0='1') then
+                ycount <= -8;
+            elsif (y6='1' and y5='0' and y4='0' and y3='1' and y0='1') then
+                ycount <= -9;
+            elsif (y6='1' and y5='0' and y4='0' and y3='1' and y0='1') then
+                ycount <= -10;
+            end if;            
+            
+
+            
+            
+            
+            
+            
+
+            if (z6='0' and z5='0' and z4='0' and z3='0') then
+                zcount <= 0;
+            elsif (z6='0' and z5='0' and z4='0' and z3='1' and z0='0') then
+                zcount <= 1;
+            elsif (z6='0' and z5='0' and z4='1' and z3='0' and z0='0') then
+                zcount <= 2;
+            elsif (z6='0' and z5='0' and z4='1' and z3='1' and z0='0') then
+                zcount <= 3; 
+            elsif (z6='0' and z5='1' and z4='0' and z3='0' and z0='0') then
+                zcount <= 4;
+            elsif (z6='0' and z5='1' and z4='0' and z3='1' and z0='0') then
+                zcount <= 5;
+            elsif (z6='0' and z5='1' and z4='1' and z3='0' and z0='0') then
+                zcount <= 6;
+            elsif (z6='0' and z5='1' and z4='1' and z3='1' and z0='0') then
+                zcount <= 7;
+            elsif (z6='1' and z5='0' and z4='0' and z3='0' and z0='0') then
+                zcount <= 8;
+            elsif (z6='1' and z5='0' and z4='0' and z3='1' and z0='0') then
+                zcount <= 9;
+            elsif (z6='1' and z5='0' and z4='0' and z3='1' and z0='0') then
+                zcount <= 0;
+            
+            elsif (z6='0' and z5='0' and z4='0' and z3='1' and z0='1') then
+                zcount <= -1;
+            elsif (z6='0' and z5='0' and z4='1' and z3='0' and z0='1') then
+                zcount <= -2;
+            elsif (z6='0' and z5='0' and z4='1' and z3='1' and z0='1') then
+                zcount <= -3; 
+            elsif (z6='0' and z5='1' and z4='0' and z3='0' and z0='1') then
+                zcount <= -4;
+            elsif (z6='0' and z5='1' and z4='0' and z3='1' and z0='1') then
+                zcount <= -5;
+            elsif (z6='0' and z5='1' and z4='1' and z3='0' and z0='1') then
+                zcount <= -6;
+            elsif (z6='0' and z5='1' and z4='1' and z3='1' and z0='1') then
+                zcount <= -7;
+            elsif (z6='1' and z5='0' and z4='0' and z3='0' and z0='1') then
+                zcount <= -8;
+            elsif (z6='1' and z5='0' and z4='0' and z3='1' and z0='1') then
+                zcount <= -9;
+            elsif (z6='1' and z5='0' and z4='0' and z3='1' and z0='1') then
+                zcount <= -10;
+            end if;
+
+            
+            
+           
+            if(counter = 2000000) then
+                counter <= 0;
+                tempx <= '1';
+                tempy <= '1';
+                tempz <= '1';
+                
+           elsif (counter = 100000) then
+            if xcount = -10 then
+                tempx <= '0';
+            end if;
+            if ycount = -10 then
+                tempy <= '0';
+            end if;
+            if zcount = -10 then
+              tempz <= '0';
+            end if;
+                counter <= counter + 1; 
+                     
+           elsif (counter = 105000) then
+             if xcount = -9 then
+               tempx <= '0';
+             end if;
+             if ycount = -9 then
+               tempy <= '0';
+             end if;
+             if zcount = -9 then
+               tempz <= '0';
+             end if;
+                  counter <= counter + 1;  
+                     
+           elsif (counter = 110000) then
+             if xcount = -8 then
+               tempx <= '0';
+             end if;
+             if ycount = -8 then
+               tempy <= '0';
+             end if;
+             if zcount = -8 then
+               tempz <= '0';
+             end if;
+                  counter <= counter + 1; 
+                  
+                  
+                                
+           elsif (counter = 115000) then
+                  if xcount = -7 then
+                    tempx <= '0';
+                  end if;
+                  if ycount = -7 then
+                    tempy <= '0';
+                  end if;
+                  if zcount = -7 then
+                     tempz <= '0';
+                  end if;
+                  counter <= counter + 1; 
+                  
+                           
+           elsif (counter = 120000) then
+                     if xcount = -6 then
+                        tempx <= '0';
+                      end if;
+                      if ycount = -6 then
+                        tempy <= '0';
+                      end if;
+                      if zcount = -6 then
+                        tempz <= '0';
+                      end if;
+                  counter <= counter + 1;
+                  
+                  
+           elsif (counter = 125000) then
+                  if xcount = -5 then
+                        tempx <= '0';
+                  end if;
+                  if ycount = -5 then
+                        tempy <= '0';
+                  end if;
+                  if zcount = -5 then
+                        tempz <= '0';
+                  end if;
+                  counter <= counter + 1;   
+                                
+           elsif (counter = 130000) then
+                  if xcount = -4 then
+                        tempx <= '0';
+                  end if;
+                  if ycount = -4 then
+                        tempy <= '0';
+                  end if;
+                  if zcount = -4 then
+                        tempz <= '0';
+                      end if;
+                  counter <= counter + 1;   
+                  
+                                
+           elsif (counter = 135000) then
+                  if xcount = -3 then
+                        tempx <= '0';
+                  end if;
+                  if ycount = -3 then
+                        tempy <= '0';
+                  end if;
+                  if zcount = -3 then
+                        tempz <= '0';
+                  end if;
+                  counter <= counter + 1;  
+                  
+                          
+           elsif (counter = 140000) then
+                  if xcount = -2 then
+                        tempx <= '0';
+                  end if;
+                  if ycount = -2 then
+                        tempy <= '0';
+                  end if;
+                  if zcount = -2 then
+                        tempz <= '0';
+                  end if;
+                  counter <= counter + 1; 
+                  
+                                            
+           elsif (counter = 145000) then
+                  if xcount = -1 then
+                        tempx <= '0';
+                  end if;
+                  if ycount = -1 then
+                        tempy <= '0';
+                 end if;
+                 if zcount = -1 then
+                        tempz <= '0';
+                      end if;
+                  counter <= counter + 1;
+                  
+                  
+           elsif (counter = 150000) then
+                  if xcount = 0 then
+                        tempx <= '0';
+                  end if;
+                  if ycount = 0 then
+                        tempy <= '0';
+                   end if;
+                  if zcount = 0 then
+                        tempz <= '0';
+                  end if;
+                  counter <= counter + 1;
+                  
+                  
+           elsif (counter = 155000) then
+                  if xcount = 1 then
+                        tempx <= '0';
+                  end if;
+                  if ycount = 1 then
+                        tempy <= '0';
+                  end if;
+                  if zcount = 1 then
+                        tempz <= '0';
+                  end if;
+                  counter <= counter + 1;
+                  
+                  
+           elsif (counter = 160000) then
+                  if xcount = 2 then
+                        tempx <= '0';
+                  end if;
+                  if ycount = 2 then
+                        tempy <= '0';
+                  end if;
+                  if zcount = 2 then
+                        tempz <= '0';
+                  end if;
+                  counter <= counter + 1;
+                  
+                  
+           elsif (counter = 165000) then
+                  if xcount = 3 then
+                        tempx <= '0';
+                      end if;
+                      if ycount = 3 then
+                        tempy <= '0';
+                      end if;
+                      if zcount = 3 then
+                        tempz <= '0';
+                      end if;
+                  counter <= counter + 1;
+                  
+                  
+           elsif (counter = 170000) then
+                  if xcount = 4 then
+                        tempx <= '0';
+                      end if;
+                      if ycount = 4 then
+                        tempy <= '0';
+                      end if;
+                      if zcount = 4 then
+                        tempz <= '0';
+                      end if;
+                  counter <= counter + 1;
+                  
+                  
+           elsif (counter = 175000) then
+                  if xcount = 5 then
+                        tempx <= '0';
+                      end if;
+                      if ycount = 5 then
+                        tempy <= '0';
+                      end if;
+                      if zcount = 5 then
+                        tempz <= '0';
+                      end if;
+                  counter <= counter + 1; 
+                  
+                        
+           elsif (counter = 180000) then
+                  if xcount = 6 then
+                        tempx <= '0';
+                      end if;
+                      if ycount = 6 then
+                        tempy <= '0';
+                      end if;
+                      if zcount = 6 then
+                        tempz <= '0';
+                      end if;
+                  counter <= counter + 1;  
+                  
+                                            
+           elsif (counter = 185000) then
+                  if xcount = 7 then
+                        tempx <= '0';
+                  end if;
+                  if ycount = 7 then
+                        tempy <= '0';
+                  end if;
+                  if zcount = 7 then
+                        tempz <= '0';
+                  end if;
+                  counter <= counter + 1;
+                  
+                  
+           elsif (counter = 190000) then
+                  if xcount = 8 then
+                        tempx <= '0';
+                  end if;
+                  if ycount = 8 then
+                        tempy <= '0';
+                  end if;
+                  if zcount = 8 then
+                        tempz <= '0';
+                  end if;
+                  counter <= counter + 1;     
+                  
+                    
+           elsif (counter = 195000) then
+                  if xcount = 9 then
+                        tempx <= '0';
+                  end if;
+                  if ycount = 9 then
+                        tempy <= '0';
+                  end if;
+                  if zcount = 9 then
+                        tempz <= '0';
+                  end if;
+                  counter <= counter + 1;   
+                  
+                      
+           elsif (counter = 200000) then
+                  if xcount = 10 then
+                        tempx <= '0';
+                  end if;
+                  if ycount = 10 then
+                        tempy <= '0';
+                  end if;
+                  if zcount = 10 then
+                        tempz <= '0';
+                  end if;
+                  counter <= counter + 1;                     
+           
+           
+     
+                                                                                                                                 
+            else 
+                counter <= counter + 1;
+            end if;
+        end if;
+     end process;
+     
+    clk_outx <= tempx;
+    clk_outy <= tempy;
+    clk_outz <= tempz;
+
+end Behavioral;
